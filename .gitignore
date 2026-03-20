@@ -1,0 +1,10 @@
+# Sub-project repos (checked out locally but tracked in their own repos)
+MedEase-App/
+MedEase-Utils/
+MedEase-PoC-Eval/
+
+# macOS
+.DS_Store
+
+# Claude Code local memory (not project files)
+.claude/
