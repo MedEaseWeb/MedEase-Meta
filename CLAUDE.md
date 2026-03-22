@@ -142,9 +142,10 @@ Handoff is currently manual:
 
 ---
 
-## Active State (as of 2026-03-20)
+## Active State (as of 2026-03-21)
 
 - MedEase-Utils V2 merged; V3 gap-closure planned
-- MedEase-App multi-agent RAG chat system is the active build focus
+- MedEase-App multi-agent RAG chat system: pipeline complete, ChromaDB indexed (216 chunks, 51 DAS records)
+- Corpus handoff: `sync_corpus.sh` at repo root; see `decisions/adr-001-corpus-handoff.md`
 - MedEase-PoC-Eval deprioritized
-- MedEase-Meta organizational layer being built out (this session)
+- MedEase-Meta organizational layer established
