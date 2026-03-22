@@ -20,6 +20,9 @@
 
 - End-to-end RAG test: spin up backend, send DAS question through chat, verify retrieval + citations
 - MedEase-Utils V3 gap-closure (see docs/utils-logs/scraping-meta-plan.md)
+  - Scope includes multi-source corpus expansion — see `ideation/inbox.md` (2026-03-22 entry)
+  - High-priority new sources: `studenthealth.emory.edu`, `counseling.emory.edu`, `emoryhealthcare.org/patients-visitors/patient-resources`
+  - Requires source metadata tagging on ChromaDB chunks
 
 ## Blocked
 
