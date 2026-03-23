@@ -30,5 +30,9 @@ _Nothing currently blocked._
 
 ## Backlog
 
+- **[Compliance — pre-contract]** PHI de-identification pipeline: two-layer (regex + spaCy/Ollama) preprocessing before outbound LLM calls — see `decisions/adr-002-phi-deidentification-strategy.md`; benchmarking under MedEase-PoC-Eval
+- **[Compliance — post-incorporation]** Sign MongoDB Atlas BAA or evaluate Vanta/Drata for compliance automation — see `compliance/hipaa-overview.md`
+- **[Compliance — pre-contract]** Draft Privacy Policy + add consent checkpoint at account creation
+- **[Compliance — pre-contract]** Add audit logging for PHI access events in FastAPI backend
 - Remove or archive obsolete frontend pages: `reportsimplification/`, `medication/`, `careGiver/` (routes already removed; files kept)
 - SignUp flow: redirect to `/dashboard` after registration (currently only Login redirects)

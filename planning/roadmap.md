@@ -12,6 +12,8 @@ intent routing, and a clean frontend.
 Key milestones:
 - Multi-agent pipeline fully operational (RAG + Triage + Medication + Caregiver agents)
 - MedEase-Utils V3 corpus gap closure
+- **PHI de-identification middleware** (Phase 1 engineering; benchmarked under MedEase-PoC-Eval)
+- **Full HIPAA compliance posture** before first institutional contract (MongoDB BAA / Vanta/Drata, Privacy Policy, audit logging) — not a beta blocker
 - Beta accessible to a small group of Emory students
 
 ## Phase 2 — Validation

@@ -1,19 +1,29 @@
 # HIPAA Compliance Overview
 
 > Last updated: 2026-03-23
-> Status: Assessment in progress — no formal BAAs signed yet
+> Status: Assessment phase — compliance obligations not yet binding; see timing section below
 
 ---
 
-## Are we a Covered Entity or Business Associate?
+## When Do HIPAA Obligations Actually Bind Us?
 
-MedEase operates as a healthcare-adjacent app serving students with disabilities.
-If we handle Protected Health Information (PHI) on behalf of a covered entity
-(e.g., Emory DAS, Emory Student Health), we are a **Business Associate** and must
-sign a BAA with each covered entity before handling their data.
+MedEase operates on a **B2B2C model** — we sell to institutions (Emory, other
+universities), who then make the product available to their students.
 
-Even in early beta, we should operate as if we are fully subject to HIPAA, as
-retrofitting compliance is substantially harder than building it in from the start.
+In this structure:
+- The **institution** (e.g., Emory DAS) is the Covered Entity under HIPAA
+- MedEase becomes a **Business Associate** only once we sign a contract with an
+  institution that involves handling their patients'/students' PHI
+- Before any such contract exists, HIPAA obligations do not formally bind us
+
+**Practical implication:** We are not required to be fully HIPAA-compliant before
+beta launch. The hard deadline is when we sign the first institutional contract.
+That is also the point at which MedEase should be incorporated as a legal entity,
+which opens additional compliance paths (see Storage section below).
+
+**Still worth doing now:** PHI de-identification for external LLM calls is a Phase 1
+engineering task regardless of legal timing — both as a trust signal to institutions
+and because it's architecturally cleaner to build in than retrofit.
 
 ---
 
@@ -21,101 +31,108 @@ retrofitting compliance is substantially harder than building it in from the sta
 
 ### Pillar 1 — Data Storage
 
-**Assessment: Low risk, but BAA needed.**
+**Assessment: Not a current blocker; multiple paths available when the time comes.**
 
-MongoDB Atlas is HIPAA-eligible under certain tiers. Key requirements:
-- Must be on **M10 or higher** Atlas cluster (shared/free tiers are not eligible)
-- Must sign a **Business Associate Agreement (BAA)** with MongoDB, Inc.
-- Encryption at rest and in transit must be enabled (Atlas enables this by default on eligible tiers)
+The key requirement is that any storage system handling PHI under an institutional
+contract must meet HIPAA technical safeguards (encryption at rest + in transit,
+access controls, audit logging) and must be covered by a BAA with the vendor.
+
+**Path A: MongoDB Atlas with BAA**
+MongoDB Atlas is HIPAA-eligible. Requirements:
+- M10 or higher cluster (shared/free tiers not eligible)
+- BAA signed with MongoDB, Inc.
+- Encryption at rest and in transit (enabled by default on eligible tiers)
 
 Reference: https://www.mongodb.com/products/platform/trust/hipaa
 
-**Action required:** Sign MongoDB BAA before beta launch with any real student data.
+**Path B: Compliance automation platforms (Vanta, Drata, others)**
+Services like Vanta and Drata help companies achieve and maintain HIPAA (and SOC 2)
+compliance posture. They integrate with existing infrastructure, automate evidence
+collection, and guide the BAA/vendor management process. This is a practical path
+once MedEase is incorporated — the platform handles much of the overhead of managing
+vendor agreements and ongoing compliance monitoring.
 
-What we store today (user profile: name, email, institution) is borderline —
-names and email addresses are HIPAA identifiers if associated with health information.
-Once any health-related context is stored (e.g., conversation history about
-accommodations or conditions), the entire user record becomes PHI.
+**Path C: Switch to a HIPAA-native managed storage vendor**
+Other database/storage vendors with strong HIPAA programs exist (AWS RDS, Google
+Cloud SQL, Azure Cosmos DB). Not a preferred path unless we migrate off MongoDB for
+other reasons — switching storage for compliance alone adds unnecessary cost.
+
+**Current recommendation:** Stay on MongoDB. When incorporation happens and the first
+institutional contract is in scope, pursue Path A (MongoDB BAA) and evaluate
+Path B (Vanta/Drata) for ongoing posture management.
 
 ---
 
 ### Pillar 2 — Internal Communications / API Calls
 
-**Assessment: Acceptable, with standard security hygiene.**
+**Assessment: Acceptable. No action required.**
 
 The internal chain — React frontend → FastAPI backend → MongoDB / ChromaDB — stays
 within our own infrastructure boundary. HIPAA does not require special protocols
 for internal system communication as long as:
 - Data in transit is encrypted (HTTPS/TLS everywhere — Cloudflare Pages + GCP App Engine cover this)
 - Access controls are in place (auth middleware, no unauthenticated endpoints)
-- Audit logging is implemented for PHI access events
 
-ChromaDB stores embeddings, not raw PHI. The RAG corpus is scraped from public Emory
-websites and does not contain student-specific PHI. This is safe.
+ChromaDB stores embeddings derived from public Emory websites, not student-specific
+PHI. The internal data flow is not a HIPAA risk.
 
-**Known gap:** No audit logging for PHI access currently. This is a Phase 1 hardening item.
+Audit logging for PHI access is a good engineering practice and will be required
+under any institutional contract — defer implementation to the compliance sprint
+that precedes contract signing.
 
 ---
 
 ### Pillar 3 — External LLM / API Calls
 
-**Assessment: Critical gap. PHI must be masked before any outbound call.**
+**Assessment: Phase 1 engineering priority — PHI de-identification middleware.**
 
-This is the highest-risk pillar. Every time a user sends a message that may contain
-PHI (name, diagnosis, medication, dates), and that message is forwarded to an
-external LLM provider, we are transmitting PHI to a third party.
+Every user message forwarded to an external LLM API (OpenAI, Anthropic) may contain
+PHI: names, diagnoses, student IDs, medications, dates. Transmitting this without
+a BAA is a HIPAA violation once we are under an institutional contract.
 
-**Current LLM providers and their HIPAA status:**
+**LLM provider HIPAA posture:**
 
 | Provider | HIPAA BAA available? | Notes |
 |----------|---------------------|-------|
-| OpenAI | Yes, Enterprise tier only | Standard API (ChatGPT API) is NOT HIPAA covered |
+| OpenAI | Enterprise tier only | Standard API is NOT covered |
 | Anthropic | No BAA currently offered | As of early 2026 |
-| Google Gemini | Yes, via Google Cloud HIPAA BAA | Requires Vertex AI, not the consumer API |
+| Google Gemini via Vertex AI | Yes | Requires GCP enterprise agreement |
 | Azure OpenAI | Yes | Covered under Microsoft HIPAA BAA |
 
-**Bottom line:** We cannot legally transmit identifiable PHI to OpenAI or Anthropic
-on standard API terms. We have two paths:
+**Phase 1 answer: PHI de-identification middleware.**
 
-1. **Sign enterprise agreements** with a provider that offers a BAA (Azure OpenAI or
-   Google Vertex AI are the most practical). Expensive and complex for a startup.
+Strip or replace the 18 HIPAA identifiers before any message leaves our system.
+This keeps us on standard API pricing, works with any LLM provider, and is the
+right architectural pattern regardless of future BAA status.
 
-2. **De-identify PHI before every outbound LLM call** — strip or replace the 18 HIPAA
-   identifiers before the message leaves our system. See `phi-deidentification.md`
-   for the detailed strategy.
-
-Path 2 is the right near-term approach. It keeps us on the standard API tier,
-is implementable in our current stack, and is the industry norm for early-stage
-healthcare AI products.
+Implementation and benchmarking will be done under **MedEase-PoC-Eval** — see
+`compliance/phi-deidentification.md` for the approach and `decisions/adr-002`
+for the formal decision record.
 
 Reference on OpenAI + HIPAA: https://www.accountablehq.com/post/is-openai-hipaa-compliant-what-healthcare-teams-need-to-know
 
----
-
-## User Disclosure Requirements
-
-HIPAA requires we inform users:
-- What PHI we collect and why
-- How we protect it
-- That mandatory de-identification occurs before any third-party AI processing
-- Their rights regarding their data
-
-This disclosure belongs in:
-1. A Privacy Policy (to be drafted)
-2. An in-app notice at account creation (consent checkpoint)
-3. Optionally, a persistent indicator in the chat UI ("Your messages are de-identified before AI processing")
-
-The user-facing language should be plain and non-alarming — "We protect your privacy
-by removing personal identifiers before sending your question to our AI" is better
-than a dense legal notice.
+Enterprise BAA path (Azure OpenAI or Vertex AI) deferred to Phase 2/3 when
+institutional contracts and revenue support it.
 
 ---
 
-## Minimum Requirements Before Beta Launch
+## User Disclosure
 
-- [ ] Sign MongoDB Atlas BAA
-- [ ] Implement PHI de-identification pipeline (see `phi-deidentification.md`)
-- [ ] Draft and publish Privacy Policy
-- [ ] Add consent checkpoint at account creation
-- [ ] Enable audit logging for PHI access in FastAPI backend
-- [ ] Decide on LLM vendor path: de-identification-first vs. enterprise BAA
+Once institutional contracts are in scope, we will need:
+1. A Privacy Policy stating what PHI is collected, how it is protected, and that
+   de-identification occurs before third-party AI processing
+2. An in-app consent checkpoint at account creation
+3. Optionally: a UI indicator in the chat interface ("Messages are de-identified before AI processing")
+
+User-facing language should be plain: "We protect your privacy by removing personal
+identifiers before sending your question to our AI."
+
+---
+
+## Compliance Timeline
+
+| Trigger | Required actions |
+|---------|-----------------|
+| Now (pre-incorporation) | Build PHI de-identification middleware; benchmark in MedEase-PoC-Eval |
+| Incorporation | Evaluate Vanta/Drata for compliance automation; begin vendor BAA process |
+| First institutional contract | Sign MongoDB BAA; implement audit logging; publish Privacy Policy; add consent checkpoint |
