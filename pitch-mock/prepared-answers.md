@@ -72,9 +72,12 @@ We're still designing the exact UX for the consent flow, but the principle is no
 
 ### #1 — "Why not just use ChatGPT?"
 
-"ChatGPT doesn't know Emory's DAS. It doesn't know the specific forms, the timelines, the documentation requirements, or the language DAS actually uses. A student asking ChatGPT about accommodation eligibility gets a generic answer that may not match Emory's policies at all.
+"ChatGPT gives you a text answer. MedEase takes action.
 
-MedEase is grounded — our RAG system is built on DAS's own published materials. The answers are accurate to Emory's actual process. That's the difference between a general-purpose tool and a purpose-built one."
+When a student asks about their accommodation options, ChatGPT generates a plausible-sounding response based on training data that could be months or years out of date. MedEase pulls from Emory's live institutional resources — so when policy changes, our answers reflect it.
+
+But the bigger difference is what happens next. ChatGPT stops at the answer. MedEase has a suite of functional agents that actually do things — help prepare documentation, walk
+through next steps, surface the right forms. We're not a better search engine. We're a system that acts."
 
 ---
 
