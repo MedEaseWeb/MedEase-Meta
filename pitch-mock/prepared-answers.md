@@ -76,8 +76,9 @@ We're still designing the exact UX for the consent flow, but the principle is no
 
 When a student asks about their accommodation options, ChatGPT generates a plausible-sounding response based on training data that could be months or years out of date. MedEase pulls from Emory's live institutional resources — so when policy changes, our answers reflect it.
 
-But the bigger difference is what happens next. ChatGPT stops at the answer. MedEase has a suite of functional agents that actually do things — help prepare documentation, walk
-through next steps, surface the right forms. We're not a better search engine. We're a system that acts."
+But the bigger difference is what happens next. ChatGPT stops at the answer. MedEase has a suite of functional agents that actually do things — help prepare documentation, walk through next steps, surface the right forms. We're not a better search engine. We're a system that acts."
+
+**Key phrase:** *"ChatGPT gives you a text answer. MedEase takes action."*
 
 ---
 

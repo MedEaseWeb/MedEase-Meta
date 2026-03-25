@@ -12,6 +12,23 @@ commitment implied. Date-stamp every entry.
 
 <!-- Entries below, newest at top -->
 
+## 2026-03-24 — Internationalization (i18n) — multilingual UI and content
+
+MedEase serves a student body where 60+ languages are spoken at home (Class of 2029 data).
+The largest non-English cohorts are Mandarin Chinese (~1,100+ students), Korean (~306+),
+Spanish (~700–800 domestic + international), and Hindi (~215+ and growing as India surpasses
+China nationally as the #1 source country per IIE Open Doors 2025). Research shows that
+non-native English speakers with disabilities face compounded barriers — language barriers
+amplify the already-difficult self-advocacy process of DAS accommodation requests.
+No competing accessibility tool in higher ed currently offers multilingual support.
+
+**Proposed approach:** react-i18next for UI string translation + locale-aware LLM prompting
+for AI response language. Phased rollout starting with P1 languages (zh-CN, ko, es),
+then P2 (hi, vi), then P3 RTL (ar, fa) as a separate workstream.
+
+**Promoted to concepts:** `ideation/concepts/i18n-multilingual-support.md`
+**Research grounding:** `research/user-insights/emory-language-demographics.md`
+
 ## 2026-03-22 — Beyond-chatbot: agentic tools and active capabilities
 
 MedEase should do things for users, not just answer questions. Three distinct jobs:
