@@ -2,9 +2,16 @@
 
 > Current sprint / active quarter.
 > Updated by Claude Code as work progresses.
-> Last updated: 2026-03-25
+> Last updated: 2026-03-26
 
 ## Completed This Sprint
+
+- MedEase-App: repo housekeeping (2026-03-26)
+  - ✅ Consolidated `start.sh` / `start_backend.sh` / `start_frontend.sh` → single `dev.sh` with subcommands
+  - ✅ Moved `agent-architecture.md` → `docs/agent-architecture.md`; all references updated
+  - ✅ Removed stale root `requirements.txt` (backend canonical) and orphaned logo files
+  - ✅ Added `README.md` with badges, collapsible sections, architecture diagram, full dev/deploy docs
+  - ✅ All local branches synced to remote
 
 - MedEase-App: landing page + demo workflow shipped to `main`
   - ✅ Landing page fully wired to react-i18next across all sections (Hero, Mission, Product, About, LP_Team, LP_UserStories, Footer, TopBar navbar)

@@ -92,7 +92,7 @@ rationale — fill it out while the reasoning is fresh.
 ### 6. Execution — `docs/` + sub-project CLAUDE.md files
 The technical layer. Live mirrors of key architecture docs from sub-projects.
 
-- `docs/agent-architecture.md` ← MedEase-App/agent-architecture.md
+- `docs/agent-architecture.md` ← MedEase-App/docs/agent-architecture.md
 - `docs/utils-logs/` ← MedEase-Utils/log/
 
 For implementation work, open the relevant sub-project in a separate
@@ -142,10 +142,15 @@ Handoff is currently manual:
 
 ---
 
-## Active State (as of 2026-03-21)
+## Active State (as of 2026-03-26)
 
 - MedEase-Utils V2 merged; V3 gap-closure planned
 - MedEase-App multi-agent RAG chat system: pipeline complete, ChromaDB indexed (216 chunks, 51 DAS records)
 - Corpus handoff: `sync_corpus.sh` at repo root; see `decisions/adr-001-corpus-handoff.md`
 - MedEase-PoC-Eval deprioritized
 - MedEase-Meta organizational layer established
+- MedEase-App repo housekeeping complete (2026-03-26):
+  - `start.sh` / `start_backend.sh` / `start_frontend.sh` → consolidated into `dev.sh`
+  - `agent-architecture.md` → `docs/agent-architecture.md`
+  - Stale root `requirements.txt` and orphaned logo files removed
+  - `README.md` added with full project documentation
