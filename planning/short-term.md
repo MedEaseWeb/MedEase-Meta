@@ -2,7 +2,7 @@
 
 > Current sprint / active quarter.
 > Updated by Claude Code as work progresses.
-> Last updated: 2026-03-26
+> Last updated: 2026-03-28
 
 ## Completed This Sprint
 
@@ -12,6 +12,15 @@
   - ✅ Removed stale root `requirements.txt` (backend canonical) and orphaned logo files
   - ✅ Added `README.md` with badges, collapsible sections, architecture diagram, full dev/deploy docs
   - ✅ All local branches synced to remote
+
+- MedEase-App: deployed to production (2026-03-28)
+  - ✅ Backend live on GCP Cloud Run (`medease-491604`, `us-central1`, 1 vCPU / 512 MiB, scales to zero)
+  - ✅ Backend URL: `https://medease-backend-476216843409.us-central1.run.app`
+  - ✅ Frontend live on Cloudflare Pages: `https://medease.pages.dev`
+  - ✅ Dockerized: `backend/Dockerfile`, `frontend/Dockerfile`, `docker-compose.yml`
+  - ✅ Lazy-load fix on BART classifier (no model download at startup)
+  - ✅ CORS updated to allow `*.medease.pages.dev` preview URLs
+  - ✅ Current public-facing state: waitlist join only — all other features (chat, medication, caregiver, simplify) hidden from UI
 
 - MedEase-App: landing page + demo workflow shipped to `main`
   - ✅ Landing page fully wired to react-i18next across all sections (Hero, Mission, Product, About, LP_Team, LP_UserStories, Footer, TopBar navbar)
@@ -58,6 +67,9 @@
 _Nothing currently blocked._
 
 ## Backlog
+
+- **[Deployment — when ML features go live]** Bump Cloud Run memory from 512 MiB → 2 GiB before enabling `/simplify` — BART model (~400MB+ runtime) will OOM at current limit: `gcloud run services update medease-backend --memory 2Gi --region us-central1`
+- **[Deployment — when ready]** Set up GitHub Actions workflow for automated Cloud Run backend deploy on push to `main` (service account key → `GCP_SA_KEY` GitHub secret)
 
 - **[Compliance — pre-contract]** PHI de-identification pipeline: two-layer (regex + spaCy/Ollama) preprocessing before outbound LLM calls — see `decisions/adr-002-phi-deidentification-strategy.md`; benchmarking under MedEase-PoC-Eval
 - **[Compliance — post-incorporation]** Sign MongoDB Atlas BAA or evaluate Vanta/Drata for compliance automation — see `compliance/hipaa-overview.md`
