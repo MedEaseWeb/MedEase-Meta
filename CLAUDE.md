@@ -135,14 +135,15 @@ Handoff is currently manual:
 
 ## Deployment
 
-- **Frontend:** Cloudflare Pages (auto-deploy on push to `main`)
-- **Backend:** Google Cloud App Engine, Python 3.12, port 8080
+- **Frontend:** Cloudflare Pages (auto-deploy on merge to `main` via GitHub Actions); `VITE_API_URL` stored in GitHub Secrets
+- **Backend:** Google Cloud Run, project `medease-491604`, region `us-central1`, port 8080; deploy with `gcloud run deploy medease-backend --source . --region us-central1 --allow-unauthenticated --port 8080` from `backend/`; live at `https://medease-backend-476216843409.us-central1.run.app`
+- **Branch workflow:** `feat/*` → `dev` → `main`; merging to `main` triggers frontend deploy; backend redeploy is manual
 - **Vector store:** ChromaDB, local-persistent at `backend/src/rag/chroma_store/`
 - **Database:** MongoDB (async via Motor)
 
 ---
 
-## Active State (as of 2026-03-26)
+## Active State (as of 2026-03-28)
 
 - MedEase-Utils V2 merged; V3 gap-closure planned
 - MedEase-App multi-agent RAG chat system: pipeline complete, ChromaDB indexed (216 chunks, 51 DAS records)
@@ -154,3 +155,8 @@ Handoff is currently manual:
   - `agent-architecture.md` → `docs/agent-architecture.md`
   - Stale root `requirements.txt` and orphaned logo files removed
   - `README.md` added with full project documentation
+- MedEase-App deployed to GCP Cloud Run (2026-03-28):
+  - Backend live at `https://medease-backend-476216843409.us-central1.run.app`
+  - Dockerized: `backend/Dockerfile` (python:3.12-slim, torch CPU-only), `frontend/Dockerfile` (nginx), `docker-compose.yml`
+  - Lazy-load fix applied to `classifier_service.py` (BART model no longer downloaded on startup)
+  - CORS updated to allow `*.medease.pages.dev` preview URLs
