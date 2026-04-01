@@ -8,3 +8,5 @@ MedEase-PoC-Eval/
 
 # Claude Code local memory (not project files)
 .claude/
+
+.obsidian/
