@@ -55,3 +55,7 @@ The chat flex chain: `outer Box (h: calc(100vh-64px))` → `Paper (flex: 1, minH
 - If TopBar height ever changes from 64px, the offset needs updating in: `SurveyShell`, `QuestionsInTheLoopPage`, `CommunityLayout`, `CommunityPage`, `NotesPage`. Consider extracting `TOPBAR_HEIGHT = 64` as a shared token.
 - `DemoSectionNav` is the single place to add/rename/reorder demo nav items.
 - `NotesWeekView` now shows 7am–10pm only (hours 7–22). Events outside this range are clipped. If users commonly schedule outside this range, widen or add an "all hours" toggle.
+
+---
+
+*Related: [[feature-registry]] · [[short-term]] · [[2026-03-25-sprint]]*

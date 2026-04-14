@@ -17,3 +17,7 @@
 
 5. **Honest about limitations.** The system should tell users what it
    can't answer and where to go instead — not hallucinate an answer.
+
+---
+
+*Related: [[north-star]] · [[feature-registry]] · [[roadmap]]*

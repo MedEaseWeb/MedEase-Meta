@@ -106,7 +106,7 @@ This keeps us on standard API pricing, works with any LLM provider, and is the
 right architectural pattern regardless of future BAA status.
 
 Implementation and benchmarking will be done under **MedEase-PoC-Eval** — see
-`compliance/phi-deidentification.md` for the approach and `decisions/adr-002`
+[[phi-deidentification]] for the approach and [[adr-002-phi-deidentification-strategy|ADR-002]]
 for the formal decision record.
 
 Reference on OpenAI + HIPAA: https://www.accountablehq.com/post/is-openai-hipaa-compliant-what-healthcare-teams-need-to-know
@@ -136,3 +136,7 @@ identifiers before sending your question to our AI."
 | Now (pre-incorporation) | Build PHI de-identification middleware; benchmark in MedEase-PoC-Eval |
 | Incorporation | Evaluate Vanta/Drata for compliance automation; begin vendor BAA process |
 | First institutional contract | Sign MongoDB BAA; implement audit logging; publish Privacy Policy; add consent checkpoint |
+
+---
+
+*Related: [[phi-deidentification]] · [[adr-002-phi-deidentification-strategy]] · [[feature-registry]] · [[roadmap]]*

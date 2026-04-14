@@ -8,3 +8,7 @@
 | MedEase-Meta org layer complete | 2026-03-20 | In progress | This session |
 | Multi-agent pipeline operational | TBD | In progress | |
 | Beta launch (small cohort) | TBD | Not started | |
+
+---
+
+*Related: [[roadmap]] · [[short-term]] · [[feature-registry]]*

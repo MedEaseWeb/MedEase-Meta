@@ -50,3 +50,7 @@ Trigger: when MedEase-Utils V3 is complete and scraping is automated.
   (`backend/src/rag/chroma_store/`) should be git-ignored (large binary/data files).
 - Phase 2 will require: a GCS bucket, service account credentials in both
   sub-projects, and a re-index trigger (App Engine cron or startup hook).
+
+---
+
+*Related: [[feature-registry]] · [[short-term]] · [[scraping-meta-plan]]*

@@ -164,3 +164,7 @@ degradation on informal text. Rule-based + LLM hybrid outperforms either alone.
 5. **Testing / validation:** We need a small benchmark dataset of synthetic
    student messages with known PHI to measure our pipeline's recall before launch.
    This does not require real student data — generate synthetic examples.
+
+---
+
+*Related: [[hipaa-overview]] · [[adr-002-phi-deidentification-strategy]] · [[feature-registry]]*

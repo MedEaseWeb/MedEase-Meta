@@ -10,7 +10,7 @@ Emory students speak 60+ languages at home. The largest non-English cohorts are 
 Chinese (~1,100+ students), Korean (~306+), and Spanish (~700–800 domestic + international).
 Research confirms that ESL students with disabilities face a documented intersectional access
 gap — language barriers compound the already-difficult DAS self-advocacy process.
-Full demographic data and citations: `research/user-insights/emory-language-demographics.md`.
+Full demographic data and citations: [[emory-language-demographics]].
 
 MedEase has two distinct i18n surfaces:
 1. **UI strings** — static labels, buttons, forms, onboarding copy
@@ -92,3 +92,7 @@ P1/P2. Japanese and Brazilian Portuguese are low-complexity additions once P1 ba
 - [ ] Source P1 translations (machine-first, human spot-check for medical accuracy)
 - [ ] QA AI responses in zh-CN, ko, es before shipping
 - [ ] Plan RTL workstream separately (P3)
+
+---
+
+*Related: [[i18n-multilingual-support]] · [[emory-language-demographics]] · [[feature-registry]] · [[inbox]]*

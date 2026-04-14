@@ -2,7 +2,7 @@
 
 > Compiled: 2026-03-24
 > Purpose: Inform i18n language prioritization for MedEase
-> See also: `ideation/concepts/i18n-multilingual-support.md`
+> See also: [[i18n-multilingual-support]]
 
 ---
 
@@ -151,3 +151,7 @@ The Atlanta metro context matters for two reasons:
 - Bridging Digital Accessibility Gap (ESL + disabilities, 2025): https://pressbooks.pub/alttexts2025/chapter/bridging-the-digital-accessibility-gap/
 - MIUSA — ESL accommodations: https://miusa.org/resource/tip-sheets/eslaccommodations/
 - DeepL vs Google vs Azure comparison 2025: https://taia.io/resources/blog/deepl-vs-google-translate-vs-microsoft-translator-2025/
+
+---
+
+*Related: [[i18n-multilingual-support]] · [[adr-003-i18n-multilingual-strategy]]*

@@ -48,7 +48,7 @@ Architecture: two-layer pipeline.
    locations, and informal PHI patterns. Higher recall, especially on
    conversational text.
 
-Full details in `compliance/phi-deidentification.md`.
+Full details in [[phi-deidentification]].
 
 Option A (enterprise BAA) is deferred to Phase 2 or Phase 3 when product
 traction and revenue support it. If we sign a BAA with a provider in future,
@@ -74,3 +74,7 @@ the de-identification pipeline remains in place as defense-in-depth.
 - [ ] Add in-chat UI indicator that de-identification is active
 - [ ] Sign MongoDB Atlas BAA (separate from this ADR, but part of the same compliance sprint)
 - [ ] Draft Privacy Policy referencing de-identification approach
+
+---
+
+*Related: [[hipaa-overview]] · [[phi-deidentification]] · [[feature-registry]] · [[roadmap]]*

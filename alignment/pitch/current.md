@@ -17,3 +17,7 @@ MedEase is an Agentic AI platform built for college studnets navigating injuries
 
 
 [PLACEHOLDER — Rolf and Annie to fill in the agreed pitch here.]
+
+---
+
+*Related: [[north-star]]*

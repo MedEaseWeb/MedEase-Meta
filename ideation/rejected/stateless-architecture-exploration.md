@@ -12,7 +12,7 @@ Going stateless eliminates Pillar 1 almost entirely. If you don't store user dat
 
 **But it cuts directly against your product vision.**
 
-Look at the 2026-03-22 ideation entry — virtually everything valuable in there requires state:
+Look at the [[inbox|2026-03-22 ideation entry]] — virtually everything valuable in there requires state:
 
 - DAS registration state machine (Applied → Docs submitted → Letters sent)
 - Follow-up threads ("Last time you asked about your DAS appeal...")
@@ -35,3 +35,7 @@ Two specific ideas worth exploring:
 The features that differentiate MedEase — continuity, longitudinal tracking, proactive nudges — are exactly the ones that require the most state. You can't have both "we store nothing" and "we know you haven't submitted your accommodation letters yet." You'll need to make a deliberate choice about *what* to store and *where*, rather than storing everything by default or nothing at all.
 
 Full stateless is probably the wrong destination, but using it as a forcing function to minimize server-side state is a good design discipline.
+
+---
+
+*Related: [[hipaa-overview]] · [[north-star]] · [[inbox]]*

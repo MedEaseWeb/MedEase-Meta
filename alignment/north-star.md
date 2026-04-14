@@ -33,3 +33,7 @@ phone call or read through walls of institutional text.
 
 *If this no longer reflects shared understanding between Rolf and Annie,
 update it before proceeding with any planning or development work.*
+
+---
+
+*Related: [[feature-registry]] · [[principles]] · [[roadmap]] · [[current|current pitch]]*

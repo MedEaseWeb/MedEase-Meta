@@ -12,8 +12,8 @@ intent routing, and a clean frontend.
 Key milestones:
 - Multi-agent pipeline fully operational (RAG + Triage + Medication + Caregiver agents)
 - MedEase-Utils V3 corpus gap closure
-- **PHI de-identification middleware** (Phase 1 engineering; benchmarked under MedEase-PoC-Eval)
-- **Full HIPAA compliance posture** before first institutional contract (MongoDB BAA / Vanta/Drata, Privacy Policy, audit logging) — not a beta blocker
+- **[[adr-002-phi-deidentification-strategy|PHI de-identification middleware]]** (Phase 1 engineering; benchmarked under MedEase-PoC-Eval)
+- **[[hipaa-overview|Full HIPAA compliance posture]]** before first institutional contract (MongoDB BAA / Vanta/Drata, Privacy Policy, audit logging) — not a beta blocker
 - Beta accessible to a small group of Emory students
 
 ## Phase 2 — Validation
@@ -26,3 +26,7 @@ Do they trust it? What questions is it failing to answer?
 To be defined after Phase 2 learnings. Possible directions:
 other universities, other accessibility offices, caregiver-facing features.
 Not scoped until Phase 1 is excellent.
+
+---
+
+*Related: [[north-star]] · [[feature-registry]] · [[milestones]] · [[short-term]] · [[principles]]*

@@ -26,8 +26,8 @@ No competing accessibility tool in higher ed currently offers multilingual suppo
 for AI response language. Phased rollout starting with P1 languages (zh-CN, ko, es),
 then P2 (hi, vi), then P3 RTL (ar, fa) as a separate workstream.
 
-**Promoted to concepts:** `ideation/concepts/i18n-multilingual-support.md`
-**Research grounding:** `research/user-insights/emory-language-demographics.md`
+**Promoted to concepts:** [[i18n-multilingual-support]]
+**Research grounding:** [[emory-language-demographics]]
 
 ## 2026-03-22 — Beyond-chatbot: agentic tools and active capabilities
 
@@ -159,5 +159,5 @@ right domain and responses can cite the source correctly.
 Scraping it means the Triage Agent can answer with Emory-specific resource names
 and hours rather than generic advice.
 
-**Candidate for:** MedEase-Utils V3 scope. Promote to `planning/short-term.md` backlog
+**Candidate for:** MedEase-Utils V3 scope. Promote to [[short-term]] backlog
 once V2 end-to-end RAG test is complete.

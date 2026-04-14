@@ -8,8 +8,8 @@ by nature — it constrains what we build and how, regardless of product priorit
 
 | File | Covers |
 |------|--------|
-| `hipaa-overview.md` | HIPAA applicability assessment and the three risk pillars |
-| `phi-deidentification.md` | PHI handling strategy for external LLM calls: 18 identifiers, tooling options, benchmarks |
+| [[hipaa-overview]] | HIPAA applicability assessment and the three risk pillars |
+| [[phi-deidentification]] | PHI handling strategy for external LLM calls: 18 identifiers, tooling options, benchmarks |
 
 ## Why a separate folder?
 
@@ -26,3 +26,7 @@ by nature — it constrains what we build and how, regardless of product priorit
 | External LLM calls | **Critical gap** — no current PHI masking before OpenAI/Anthropic requests |
 | User-facing disclosure | Not yet written |
 | Staff training / policy docs | Not started |
+
+---
+
+*Related: [[adr-002-phi-deidentification-strategy]] · [[feature-registry]] · [[roadmap]]*

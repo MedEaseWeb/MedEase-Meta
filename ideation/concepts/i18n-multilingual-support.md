@@ -1,7 +1,7 @@
 # Concept: Internationalization (i18n) — Multilingual UI and AI Responses
 
 > Status: Concept (promoted from inbox 2026-03-24)
-> Research grounding: `research/user-insights/emory-language-demographics.md`
+> Research grounding: [[emory-language-demographics]]
 > Next step: Alignment review → graduate to `planning/short-term.md` backlog
 
 ---
@@ -24,7 +24,7 @@ MedEase has an opportunity to be the first.
 ## Language Priority Tiers
 
 Based on Emory enrollment data, Atlanta metro demographics, and implementation complexity.
-Full data and citations in `research/user-insights/emory-language-demographics.md`.
+Full data and citations in [[emory-language-demographics]].
 
 ### P1 — Launch with (high volume, low engineering risk)
 
@@ -123,3 +123,7 @@ The LLM generates natural-language responses — these cannot be covered by stat
 - **Compliance:** AI responses in non-English languages do not change PHI handling —
   the de-identification pipeline operates before LLM calls regardless of output language.
   No new compliance surface.
+
+---
+
+*Related: [[adr-003-i18n-multilingual-strategy]] · [[emory-language-demographics]] · [[feature-registry]] · [[north-star]] · [[inbox]]*

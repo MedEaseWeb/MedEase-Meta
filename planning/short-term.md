@@ -55,10 +55,10 @@
 
 ## Up Next
 
-- i18n AI layer: locale-aware system prompt injection (see ADR-003; UI layer complete)
+- i18n AI layer: locale-aware system prompt injection (see [[adr-003-i18n-multilingual-strategy|ADR-003]]; UI layer complete)
 - End-to-end RAG test: spin up backend, send DAS question through chat, verify retrieval + citations
-- MedEase-Utils V3 gap-closure (see docs/utils-logs/scraping-meta-plan.md)
-  - Scope includes multi-source corpus expansion — see `ideation/inbox.md` (2026-03-22 entry)
+- MedEase-Utils V3 gap-closure (see [[scraping-meta-plan]])
+  - Scope includes multi-source corpus expansion — see [[inbox]] (2026-03-22 entry)
   - High-priority new sources: `studenthealth.emory.edu`, `counseling.emory.edu`, `emoryhealthcare.org/patients-visitors/patient-resources`
   - Requires source metadata tagging on ChromaDB chunks
 
@@ -71,9 +71,13 @@ _Nothing currently blocked._
 - **[Deployment — when ML features go live]** Bump Cloud Run memory from 512 MiB → 2 GiB before enabling `/simplify` — BART model (~400MB+ runtime) will OOM at current limit: `gcloud run services update medease-backend --memory 2Gi --region us-central1`
 - **[Deployment — when ready]** Set up GitHub Actions workflow for automated Cloud Run backend deploy on push to `main` (service account key → `GCP_SA_KEY` GitHub secret)
 
-- **[Compliance — pre-contract]** PHI de-identification pipeline: two-layer (regex + spaCy/Ollama) preprocessing before outbound LLM calls — see `decisions/adr-002-phi-deidentification-strategy.md`; benchmarking under MedEase-PoC-Eval
-- **[Compliance — post-incorporation]** Sign MongoDB Atlas BAA or evaluate Vanta/Drata for compliance automation — see `compliance/hipaa-overview.md`
+- **[Compliance — pre-contract]** PHI de-identification pipeline: two-layer (regex + spaCy/Ollama) preprocessing before outbound LLM calls — see [[adr-002-phi-deidentification-strategy]]; benchmarking under MedEase-PoC-Eval
+- **[Compliance — post-incorporation]** Sign MongoDB Atlas BAA or evaluate Vanta/Drata for compliance automation — see [[hipaa-overview]]
 - **[Compliance — pre-contract]** Draft Privacy Policy + add consent checkpoint at account creation
 - **[Compliance — pre-contract]** Add audit logging for PHI access events in FastAPI backend
 - Remove or archive obsolete frontend pages: `reportsimplification/`, `medication/`, `careGiver/` (routes already removed; files kept)
 - SignUp flow: redirect to `/dashboard` after registration (currently only Login redirects)
+
+---
+
+*Related: [[roadmap]] · [[milestones]] · [[feature-registry]]*
