@@ -38,6 +38,12 @@ and safety awareness are critical.
 5. **Response** — warm, non-clinical tone; lead with the resource, not a
    clinical assessment. Normalize help-seeking.
 
+## Actions
+- **Surface crisis resource buttons immediately** — if any distress signal is detected, render "Call or Text 988" and "Emory CAPS Crisis Line: 404-727-7450" as prominent action buttons at the top of the response, regardless of the original question. These always appear before any other content when distress is present.
+- **Generate a CAPS / Let's Talk access card** — a structured card with: CAPS scheduling link, Let's Talk drop-in schedule and locations, same-day consultation option. Rendered as a resource card, not a paragraph.
+- **Generate a DAS mental health accommodation checklist** — if the student indicates their mental health condition is affecting academics, immediately produce the checklist: (1) gather documentation from therapist/psychiatrist, (2) register or update with DAS, (3) request academic accommodation letter. Offer to transition to UC-002.
+- **Hard-route to UC-015** — on any hard crisis signal, override all other actions and inject the crisis response card first.
+
 ## Information Sources
 - DAS corpus: mental health accommodations
 - Emory CAPS resources, Let's Talk program, crisis lines

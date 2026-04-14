@@ -33,6 +33,11 @@ medication relates to their DAS accommodations.
 4. **Response** — practical and specific; avoid clinical advice about
    dosing or efficacy.
 
+## Actions
+- **Generate a medication continuity checklist** — action items for managing prescriptions at Emory: (1) confirm pharmacy at Emory Student Health, (2) contact home provider to authorize Emory transfer, (3) note refill timing to avoid gaps, (4) flag any DAS documentation that references medication timing. Rendered as a checkable list.
+- **Surface Emory Student Health pharmacy CTA** — "Contact Student Health Pharmacy" button with phone and portal link; injected whenever a refill or supply question is detected.
+- **Escalate to UC-010 framing** — if the student signals they are out of a critical medication (insulin, psychiatric medication, seizure medication), immediately render an urgency card with Student Health contact and 911 instruction; don't continue the procedural response until that card is shown.
+
 ## Information Sources
 - Medication agent knowledge base
 - DAS corpus: if medication ties to an accommodation (e.g., documentation

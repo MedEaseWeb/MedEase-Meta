@@ -35,6 +35,12 @@ medications, or mental health services).
 4. **Response** — answer what we can from corpus; be explicit about limits
    (we can't adjudicate a claim or read their specific plan).
 
+## Actions
+- **Render a "DAS is free" card upfront** — any time cost or billing is mentioned alongside DAS, immediately output a visible callout: "DAS accommodations have no cost to students." Prevents the misconception from sticking.
+- **Generate a billing inquiry email template** — for students who have received a specific bill, generate a pre-written inquiry to the Student Health billing office: patient name placeholder, service date, question about the charge, request for itemization. Student reviews and sends.
+- **Inject Student Health billing office CTA** — "Contact Student Health Billing" button with phone and portal link; appears whenever a specific bill is being disputed or a coverage question exceeds what we can answer.
+- **Generate an insurance options card** — for uninsured students or those asking about plan options, produce a structured card: (1) Emory student health insurance plan enrollment, (2) Georgia Medicaid eligibility note, (3) ACA marketplace note. Does not recommend a specific plan.
+
 ## Information Sources
 - DAS corpus: any coverage/cost information
 - Emory Student Health insurance plan general information

@@ -41,6 +41,13 @@ the Guardrail layer, not the Intent Classifier.
 4. **After resources:** if soft signal (not hard emergency), offer to continue
    with whatever the student originally needed.
 
+## Actions
+- **Hard interrupt all other agent routing** — on any guardrail trigger, immediately halt the normal pipeline. No intent classification, no RAG query. Crisis response layer fires first.
+- **Render crisis contacts as action buttons** — not inline text. Each contact (911, Emory Police, CAPS Crisis Line, 988, Crisis Text Line) is rendered as a tappable/clickable button with the number visible. This is a UI-level requirement, not just response content.
+- **Generate a personal safety plan stub** — for soft-signal cases (not hard emergencies), after surfacing resources, offer to generate a short safety plan: who to call, what to do first, where to go. Student fills in names; system pre-fills the Emory-specific contacts.
+- **Log the crisis signal** — flag the session internally for follow-up review (platform-level action, not user-visible). Supports quality assurance and safety auditing.
+- **Resume original flow only after explicit user acknowledgment** — for soft signals, do not automatically continue the previous conversation topic. Wait for the user to indicate they want to proceed.
+
 ## Response Template
 
 **For hard emergencies (medical or imminent harm):**

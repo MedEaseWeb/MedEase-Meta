@@ -41,6 +41,13 @@ raises FERPA considerations.
 5. **Response** — empathetic to the caregiver's concern; empowering framing
    that keeps the student at the center.
 
+## Actions
+*(Deferred — implement when caregiver feature is re-prioritized. Spec is maintained for design intent.)*
+
+- **Generate a "Supporting Your Student" resource packet** — a structured, shareable artifact with public-only information: what DAS does, how the registration process works, what caregivers can do to help (gather documents, encourage registration), what they cannot do (submit on behalf of the student, access records). Framed for a parent audience.
+- **Surface a "Student Must Initiate" callout** — a visible callout on every caregiver response: "Your student must start the DAS process themselves. You can help them prepare, but DAS registration requires the student's own action."
+- **Route to UC-015 resources** — if caregiver expresses that the student is in crisis, surface the crisis resource card immediately (framed as "resources for your student") before anything else.
+
 ## Information Sources
 - DAS corpus (general process information)
 - Caregiver-specific framing layer

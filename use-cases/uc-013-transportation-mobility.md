@@ -31,6 +31,12 @@ disabilities who find long walks difficult.
    - Temporary vs. permanent mobility accommodations
 4. **Response** — practical, location-specific guidance where possible.
 
+## Actions
+- **Generate a mobility accommodation request summary** — a structured card the student can reference or forward: accommodation type (cart service / accessible parking / campus route support), whether temporary or permanent, DAS as the initiating contact. Includes a "Submit Through DAS" CTA.
+- **Generate a temporary accommodation fast-track card** — for students with recent injuries, produce a specific card noting that temporary accommodations typically process faster and what to bring to DAS (provider note, cast/brace documentation).
+- **Render an ESA vs. Service Animal card** — if an animal-related request surfaces, immediately produce the two-column comparison card distinguishing rights and process (links to UC-007 for the full housing flow).
+- **Inject DAS contact CTA** — "Request Mobility Accommodation" button to DAS portal; injected on every UC-013 response as the primary action.
+
 ## Information Sources
 - DAS corpus: transportation and mobility services
 - Note: real-time shuttle schedules or route updates are outside our scope

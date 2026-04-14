@@ -28,6 +28,12 @@ diagnosed and is now seeking formal accommodations.
 4. **Response** — structured walkthrough, ideally numbered steps, ending with
    the DAS portal URL or contact info as the action item.
 
+## Actions
+- **Generate a personalized registration checklist** — a numbered, checkable artifact the student can work through: (1) gather documentation, (2) create a DAS portal account, (3) submit intake form, (4) schedule advisor appointment. Rendered as a checklist, not prose.
+- **Generate a "Provider Letter Request" template** — a short, pre-written message the student can hand or send to their clinician explaining what DAS needs in a documentation letter.
+- **Inject DAS portal link as a CTA button** — primary action surface at end of response; labeled "Open DAS Registration Portal."
+- **Auto-transition to UC-003** if the student asks "what documents do I need?" mid-flow — don't re-describe, switch context and start UC-003.
+
 ## Information Sources
 - DAS corpus (primary): registration steps, intake process, portal instructions
 - No user-specific data required; this is a general procedural answer

@@ -1,6 +1,6 @@
 # Use Cases — Agent Behavior Specifications
 
-> Last updated: 2026-03-22
+> Last updated: 2026-04-13
 
 This folder defines the concrete use cases MedEase is designed to handle and
 specifies expected agent behavior for each one. Each use case is a distinct
@@ -11,7 +11,7 @@ explicit rules for what to do at the boundaries.
 
 ## Purpose
 
-The feature registry (`alignment/feature-registry.md`) tracks *what* is built.
+The [[feature-registry]] tracks *what* is built.
 This folder tracks *how* each agent should behave for each specific scenario
 a user might arrive with. These specs are the source of truth for:
 
@@ -86,6 +86,11 @@ Keywords, phrases, or patterns that suggest this use case.
 ## Agent Workflow
 Step-by-step: which agents are called, in what order, with what inputs.
 
+## Actions
+Concrete things the system does — artifacts generated, flows initiated, CTAs
+surfaced, external-facing steps taken. These are not response descriptions;
+they are system behaviors that produce outputs or trigger state changes.
+
 ## Information Sources
 What the agent draws on to answer (corpus, user input, external resources).
 
@@ -119,3 +124,7 @@ User message
 ```
 
 Each use case spec maps onto one or more nodes in this pipeline.
+
+---
+
+*Related: [[north-star]] · [[feature-registry]] · [[principles]]*

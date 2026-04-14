@@ -28,6 +28,12 @@ isn't sure what that means for their accommodations.
 4. **Response** — clear steps for renewal, with emphasis on timing
    (accommodations are not retroactive in most cases).
 
+## Actions
+- **Generate a semester activation checklist** — distinguishes self-service reactivation steps (log into DAS portal, request letters for new courses) from steps requiring DAS advisor contact (condition changes, expired documentation). Rendered as a branching checklist, not prose.
+- **Surface semester timing alert** — if current date is within 4 weeks of a semester start, prepend a visible urgency banner: "Accommodations are not retroactive — act before [date]."
+- **Inject DAS portal CTA** — "Reactivate Accommodations" button pointing directly to the semester request flow.
+- **Auto-transition to UC-003** if the user indicates their documentation may have expired — begin documentation requirements flow immediately.
+
 ## Information Sources
 - DAS corpus (primary): renewal policy, semester activation process
 - User context: how long since they last used DAS, whether anything has changed

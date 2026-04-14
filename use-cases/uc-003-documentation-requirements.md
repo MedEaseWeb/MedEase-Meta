@@ -30,6 +30,12 @@ acceptable. May be returning to update documentation for a renewal.
 4. **Response** — clear explanation of requirements, what makes documentation
    strong vs. insufficient, and where to submit or clarify.
 
+## Actions
+- **Generate a documentation requirements card** — a structured checklist of what DAS looks for: (1) licensed provider credentials, (2) diagnosis stated explicitly, (3) functional limitations described, (4) recommended accommodations if provider has them. Rendered as a checklist.
+- **Generate a "What to Ask Your Provider" script** — a short, plain-language bulleted list the student can print or paste into a patient portal message to their clinician.
+- **Flag documentation gaps** — if the user describes what they have, output a side-by-side "you have / you may be missing" comparison card rather than just explaining requirements.
+- **Inject DAS contact CTA** — if the student's situation is unusual (old docs, international docs, ER records), surface a "Contact DAS Directly" button rather than trying to adjudicate.
+
 ## Information Sources
 - DAS corpus (primary): documentation guidelines, provider requirements
 - User-provided context (what they have) used to calibrate specificity of answer

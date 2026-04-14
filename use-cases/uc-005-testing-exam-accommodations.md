@@ -32,6 +32,13 @@ professor isn't honoring accommodations).
 4. **Response** — specific and actionable; if the student is mid-process or
    has a problem, address that first before general info.
 
+## Actions
+- **Generate an exam scheduling request template** — a pre-filled form stub the student can copy into the DAS testing portal: course name, instructor, exam date/time, accommodation type needed, lead time confirmation. Presented as a fillable card.
+- **Surface scheduling deadline alert** — calculate from user-provided exam date whether the 5–7 business day window is still met; output a visible "On time" or "At risk — contact DAS today" status badge.
+- **Draft a professor dispute email** — if the student says a professor isn't honoring accommodations, immediately generate a professional email to send to the DAS advisor documenting the situation; offer to adjust before the student sends.
+- **Inject DAS testing center CTA** — "Schedule My Exam" button to the DAS portal testing request page.
+- **Route to UC-008** if professor refusal is confirmed — begin grievance flow, don't just describe it.
+
 ## Information Sources
 - DAS corpus (primary): testing center procedures, scheduling policies
 - User context: are they asking proactively or is something going wrong?

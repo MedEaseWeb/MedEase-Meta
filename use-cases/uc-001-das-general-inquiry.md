@@ -27,6 +27,11 @@ a returning student exploring accommodations they didn't know existed.
 4. **Response** — synthesized overview with a clear next step (usually: "start
    the DAS registration process" → link to UC-002 flow or DAS portal).
 
+## Actions
+- **Render an accommodation category card** — a structured list of the main accommodation types (academic, testing, housing, dining, transportation) so the user can scan rather than read prose.
+- **Inject a "Start Registration" CTA** — a prominent button or link to the DAS online intake portal; appears at the end of every UC-001 response regardless of what was asked.
+- **Route to UC-002 flow immediately** if the user indicates they want to apply — don't describe the next step, *begin* it.
+
 ## Information Sources
 - DAS corpus (primary): accommodation categories, eligibility overview, FAQ
 - No user-specific data required at this stage

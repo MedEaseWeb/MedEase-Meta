@@ -33,6 +33,12 @@ responds skeptically or refuses.
    - Offer to adjust tone (formal vs. casual)
 5. **Response** — answer the process question + offer the draft if wanted.
 
+## Actions
+- **Draft the professor email immediately** — when a student asks for help communicating their accommodations, generate the email in-line without waiting for a follow-up request. Include: course greeting, reference to DAS accommodation letter (no diagnosis mentioned), request for a brief acknowledgment. Offer tone variants (formal / casual).
+- **Render a "What Your Accommodation Letter Says" card** — a short explainer the student can share with a skeptical professor: what the letter includes, what it deliberately omits, and what the professor is legally required to do.
+- **Draft a DAS escalation email** if the professor is refusing or demanding diagnosis disclosure — generate the escalation email to the student's DAS advisor documenting the incident; student reviews before sending.
+- **Route to UC-008** if the situation escalates to a formal dispute — initiate grievance flow.
+
 ## Information Sources
 - DAS corpus: accommodation letter process, faculty notification procedures
 - User context: which course, what accommodation, what's the situation

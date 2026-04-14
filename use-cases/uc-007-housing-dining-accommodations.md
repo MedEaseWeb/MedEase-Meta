@@ -34,6 +34,12 @@ mid-year.
 4. **Response** — procedural walkthrough; note that housing accommodation
    requests often have earlier deadlines than academic ones.
 
+## Actions
+- **Generate a housing accommodation request checklist** — step-by-step: (1) register/update with DAS, (2) submit housing accommodation form through DAS portal, (3) DAS notifies Residence Life, (4) housing assignment follows. Flags deadline urgency at the top if semester start is within 8 weeks.
+- **Generate an ESA vs. Service Animal comparison card** — a side-by-side structured card distinguishing rights, required documentation, and approval process for each. Rendered as a table, not prose.
+- **Generate a dining accommodation request summary** — a pre-written paragraph the student can send to Emory Dining Services documenting their medical dietary need; includes a placeholder for provider note if required.
+- **Inject DAS housing request CTA** — "Submit Housing Accommodation Request" button pointing to the DAS portal housing form.
+
 ## Information Sources
 - DAS corpus: housing accommodation process, ESA/service animal policies
 - Potentially cross-references Emory Housing and Dining offices

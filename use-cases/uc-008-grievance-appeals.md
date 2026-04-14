@@ -31,6 +31,12 @@ High-stakes and often emotionally charged interactions.
 4. **Response** — lead with acknowledgment of the difficulty, then
    procedural pathway. Do not render judgment on whether the denial was right.
 
+## Actions
+- **Generate a documentation log template** — a structured incident record the student fills out: date of incident, who was involved, what was said or denied, what accommodation was at issue, any written evidence. Rendered as a fillable card; student can export or copy.
+- **Draft an appeal letter** — when a student has been denied by DAS, generate a formal appeal letter to the DAS supervisor using the student's provided context. Factual, professional tone; no inflammatory language. Offer to revise before submission.
+- **Generate an escalation path card** — a step-by-step structured card: (1) DAS advisor → (2) DAS Director → (3) Emory Office of Equity and Inclusion → (4) Federal OCR complaint. Each step includes the appropriate contact point.
+- **Route to UC-015** if the student expresses distress that crosses into crisis signals — override and inject crisis resources first.
+
 ## Information Sources
 - DAS corpus: appeal and grievance procedures
 - Emory institutional knowledge: OCR complaint pathway, equity office
