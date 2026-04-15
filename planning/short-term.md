@@ -86,6 +86,21 @@
   - 🔲 Institution auth: wire real institution membership check (backend)
   - 🔲 Conversation history: sidebar placeholder ready, persistence not yet implemented
 
+## Up Next — Legacy Dump (do before Firestore migration)
+
+- **Legacy route + frontend cleanup** — ADR-007 accepted; one cleanup PR in MedEase-App
+  - **Backend — delete:**
+    - `src/routes/`: `medication.py`, `caregiver.py`, `google.py`, `simplify.py`
+    - `src/services/`: `simplify_service.py`, `dummy_simplify_service.py`, `classifier_service.py`
+    - `src/utils/s3Connection.py`
+    - `src/LLMmodel/ChatGPT.py` (only consumer was `/medication`)
+    - `src/models/`: `medicationModel.py`, `diaryModel.py`, `gmailModel.py`, `googleCalendarModel.py`, `patientDataModel.py`, `careGiverModel.py`, `simplificationModel.py`, `request_model.py`
+  - **Backend — edit `main.py`:** remove 4 router imports + `include_router` calls (medication, caregiver, google, simplify)
+  - **Backend — edit `requirements.txt`:** remove `boto3`, `torch`, `transformers` (verify no other consumers)
+  - **Frontend — delete:** `src/pages/careGiver/`, `src/pages/medication/`, `src/pages/reportsimplification/`
+  - **After PR merges:** redeploy backend to Cloud Run (image will be materially smaller)
+  - **Update:** `MedEase-App/CLAUDE.md` — remove stale route/feature references
+
 ## Up Next
 
 - **RAG corpus sitemap / registry** ← *Rolf working on this first*

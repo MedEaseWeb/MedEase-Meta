@@ -38,11 +38,15 @@ exist yet. If it's deprioritized, the reason should be noted.
 | Privacy Policy + user consent checkpoint | Rolf (2026-03-23) | Needed before first institutional contract |
 | MongoDB Atlas BAA | Rolf (2026-03-23) | Needed before first institutional contract; path dependent on incorporation |
 
-## Deprioritized
+## Deprioritized / Removed
 
 | Feature | Reason |
 |---------|--------|
 | MedEase-PoC-Eval general benchmarking | Superseded by direct product iteration — **but re-activated for PHI de-identification benchmarking specifically** |
+| Medication management | Prototype-era feature; hidden from UI; routes and frontend pages scheduled for deletion (ADR-007). Rebuild against Firestore if re-prioritized. |
+| Caregiver dashboard | Prototype-era feature; hidden from UI; uses AWS S3 (off-GCP vendor). Routes and frontend pages scheduled for deletion (ADR-007). Rebuild against Firestore + GCS if re-prioritized. |
+| Report simplification (BART) | BART-MNLI pipeline hidden from UI; adds ~400MB+ Docker image weight; lazy-load workaround already in place. Routes and services scheduled for deletion (ADR-007). Blocked on Cloud Run memory bump anyway. |
+| Manual Google OAuth token management | `google.py` route file — OAuth token storage/refresh handled by MongoDB collections. Eliminated by Firebase Auth (ADR-006); deleted in ADR-007 cleanup. |
 
 ---
 
