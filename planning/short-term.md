@@ -2,7 +2,7 @@
 
 > Current sprint / active quarter.
 > Updated by Claude Code as work progresses.
-> Last updated: 2026-03-28
+> Last updated: 2026-04-15
 
 ## Completed This Sprint
 
@@ -42,6 +42,39 @@
   - ✅ Favicon updated to medease-logo.svg
   - ✅ Nav order: Mission / Product / About / User Stories / Team (no Docs)
 
+## Completed This Sprint (cont'd) — 2026-04-15
+
+- MedEase-App: i18n AI layer (2026-04-15)
+  - ✅ `AgentContext` gains `locale` field; `socket_server` extracts locale from every Socket.IO payload
+  - ✅ `language_directive()` helper in `base_agent` maps locale → "Respond in X" system-prompt injection
+  - ✅ All 5 specialist agents (RAG, medication, triage, accommodation, caregiver) are locale-aware
+  - ✅ `ChatPage.jsx` and `ChatBox.jsx` pass `{ content, locale }` on every emit
+  - ✅ Merged as PR #23 → `dev`
+
+- MedEase-App: i18n UI completions (2026-04-15)
+  - ✅ ChatPage welcome message uses `t("chat.welcomeMain")`; updates live on language switch if no conversation started
+  - ✅ TopBar dropdown: "Signed in as" and "Settings" now translated
+  - ✅ SettingsPage fully wired — all strings use `t()` across en/zh-CN/ko/es
+
+- MedEase-App: Japanese (ja) translation (2026-04-15)
+  - ✅ `locales/ja/translation.json` — complete, includes all keys current as of today
+  - ✅ Wired into `i18n.js`, TopBar, LandingPage language switchers
+  - ✅ `base_agent.py` locale directive map updated; orchestrator dev stubs include Japanese
+  - ✅ Merged as PR #26 → `dev`
+
+- MedEase-App: Dev Mode (2026-04-15)
+  - ✅ Settings pane: "Developer" section with toggle; state persisted in `localStorage`
+  - ✅ Single interceptor in `Orchestrator.handle()` — bypasses all LLM calls when on
+  - ✅ Stubs stream word-by-word (45ms/word) via `bot-token` / `bot-done` protocol
+  - ✅ Locale-aware stubs: en / zh-CN / ko / es / ja — never ships to `main`
+  - ✅ Merged as PR #24/#25 → `dev`
+
+- MedEase-App: Use case registry expanded (2026-04-15)
+  - ✅ UC-018: Emory Healthcare Financial Assistance — proactive surfacing, international student callout, bill hold template
+
+- MedEase-Meta: dev ↔ main sync (2026-04-15)
+  - ✅ Merged main hotfixes (CORS, Dockerfile, Cloud Run, VITE_API_URL) back into dev; branches re-aligned
+
 ## In Progress
 
 - MedEase-App: multi-agent RAG chat system (backend)
@@ -49,18 +82,18 @@
   - ✅ `/settings` — user settings page with profile + institution (Emory DAS) + sign-out
   - ✅ RAG pipeline live: 216 chunks from 51 Emory DAS records indexed into ChromaDB
   - ✅ Corpus handoff: `sync_corpus.sh` script at repo root; ADR-001 documents decision + GCS migration path
-  - 🔲 i18n AI layer: pass `locale` in Socket.IO payload, backend injects `"Respond in {language}"` directive
+  - ✅ i18n AI layer: locale passed in Socket.IO payload, backend injects language directive
   - 🔲 Institution auth: wire real institution membership check (backend)
   - 🔲 Conversation history: sidebar placeholder ready, persistence not yet implemented
 
 ## Up Next
 
-- i18n AI layer: locale-aware system prompt injection (see [[adr-003-i18n-multilingual-strategy|ADR-003]]; UI layer complete)
-- End-to-end RAG test: spin up backend, send DAS question through chat, verify retrieval + citations
-- MedEase-Utils V3 gap-closure (see [[scraping-meta-plan]])
-  - Scope includes multi-source corpus expansion — see [[inbox]] (2026-03-22 entry)
-  - High-priority new sources: `studenthealth.emory.edu`, `counseling.emory.edu`, `emoryhealthcare.org/patients-visitors/patient-resources`
+- **End-to-end RAG test** — spin up backend, send real DAS question through chat, verify retrieval + citations show correctly; first formal validation of the full pipeline
+- **MedEase-Utils V3 gap-closure** — corpus expansion beyond current 216 chunks / 51 DAS records
+  - High-priority new sources: `studenthealth.emory.edu`, `counseling.emory.edu`, `emoryhealthcare.org/patients-visitors/patient-resources` (financial assistance — motivated by UC-018)
   - Requires source metadata tagging on ChromaDB chunks
+- **Conversation history** — persist chat turns to MongoDB; sidebar placeholder already in UI
+- **Institution auth** — wire real institution membership check on backend
 
 ## Blocked
 
