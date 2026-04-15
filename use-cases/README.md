@@ -1,6 +1,6 @@
 # Use Cases — Agent Behavior Specifications
 
-> Last updated: 2026-04-13
+> Last updated: 2026-04-14
 
 This folder defines the concrete use cases MedEase is designed to handle and
 specifies expected agent behavior for each one. Each use case is a distinct
@@ -48,6 +48,7 @@ a user might arrive with. These specs are the source of truth for:
 |----|----------|
 | [UC-012](uc-012-billing-insurance.md) | Billing & Insurance Questions |
 | [UC-013](uc-013-transportation-mobility.md) | Transportation & Mobility Access |
+| [UC-018](uc-018-financial-assistance.md) | Emory Healthcare Financial Assistance |
 
 ### Caregiver
 | ID | Use Case |
