@@ -88,11 +88,12 @@
 
 ## Up Next
 
+- **RAG corpus sitemap / registry** ← *Rolf working on this first*
+  - Registry live at `research/corpus-registry.md` — 8 sources tracked (C-001 through C-008)
+  - Immediate work: MedEase-Utils V3 scraping P1 sources: `studenthealth.emory.edu`, `counseling.emory.edu`, `emoryhealthcare.org/patients-visitors/patient-resources`
+  - Requires source metadata tagging on ChromaDB chunks (schema defined in corpus-registry.md)
 - **End-to-end RAG test** — spin up backend, send real DAS question through chat, verify retrieval + citations show correctly; first formal validation of the full pipeline
-- **MedEase-Utils V3 gap-closure** — corpus expansion beyond current 216 chunks / 51 DAS records
-  - High-priority new sources: `studenthealth.emory.edu`, `counseling.emory.edu`, `emoryhealthcare.org/patients-visitors/patient-resources` (financial assistance — motivated by UC-018)
-  - Requires source metadata tagging on ChromaDB chunks
-- **Conversation history** — persist chat turns to MongoDB; sidebar placeholder already in UI
+- **Conversation history** — plan registered at `planning/conversation-history-plan.md`; Phase 1: MongoDB persistence + fixed 10-turn window + session sidebar; Phase 2: rolling summarization at >20 turns
 - **Institution auth** — wire real institution membership check on backend
 
 ## Blocked
