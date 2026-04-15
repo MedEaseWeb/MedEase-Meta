@@ -24,6 +24,7 @@ NNN is zero-padded (001, 002, ...). Short title is kebab-case.
 | [ADR-003](adr-003-i18n-multilingual-strategy.md) | i18n multilingual strategy | Accepted |
 | [ADR-004](adr-004-demo-uiux-layout.md) | Demo UI/UX layout | Accepted |
 | [ADR-005](adr-005-utils-hosted-architecture.md) | Utils hosted architecture — Cloud Run Jobs, GCS corpus, MongoDB run metadata | Accepted |
+| [ADR-006](adr-006-firestore-firebase-auth-migration.md) | Migrate from MongoDB + custom JWT to Firestore + Firebase Auth | Accepted |
 
 ## Claude Code's responsibility
 
