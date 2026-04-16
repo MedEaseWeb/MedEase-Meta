@@ -1,7 +1,7 @@
 # ADR-007: Remove Legacy Routes, Services, and Frontend Pages
 
 > Date: 2026-04-15
-> Status: Accepted
+> Status: Accepted (Resolved)
 > Decided by: Rolf
 
 ## Context

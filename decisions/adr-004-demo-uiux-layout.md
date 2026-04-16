@@ -1,7 +1,7 @@
 # ADR-004: Demo UI/UX Layout Architecture
 
 > Date: 2026-03-25
-> Status: Accepted
+> Status: Accepted (Resolved)
 > Decided by: Rolf
 
 ## Context

@@ -1,7 +1,7 @@
 # ADR-003: Internationalization (i18n) Strategy — Library, Language Tiers, and AI Response Localization
 
 > Date: 2026-03-24
-> Status: Accepted
+> Status: Accepted (Resolved)
 > Decided by: Rolf
 
 ## Context
