@@ -2,7 +2,7 @@
 
 > Current sprint / active quarter.
 > Updated by Claude Code as work progresses.
-> Last updated: 2026-04-15
+> Last updated: 2026-04-16
 
 ## Completed This Sprint
 
@@ -75,6 +75,29 @@
 - MedEase-Meta: dev ↔ main sync (2026-04-15)
   - ✅ Merged main hotfixes (CORS, Dockerfile, Cloud Run, VITE_API_URL) back into dev; branches re-aligned
 
+## Completed This Sprint (cont'd) — 2026-04-16
+
+- MedEase-App: legacy route + frontend cleanup (2026-04-16)
+  - ✅ Full route audit — separated active routes from prototype-era legacy (medication, caregiver, simplify, Google OAuth)
+  - ✅ ADR-007 drafted and accepted
+  - ✅ 17 backend files deleted: 4 route files, 3 service files, `s3Connection.py`, `ChatGPT.py`, 8 model files
+  - ✅ 13 frontend files deleted: `careGiver/`, `medication/`, `reportsimplification/` directories
+  - ✅ 13 packages removed from `requirements.txt`: full boto3 chain (AWS S3) + torch/transformers chain (BART/HuggingFace)
+  - ✅ `main.py` reduced from 7 routers to 3 active routers
+  - ✅ `MedEase-App/CLAUDE.md` updated to reflect current codebase state
+  - ✅ Merged as PR #27 → `dev`; PR #29 (`dev` → `main`) conflicts resolved and ready to merge
+
+- MedEase-App: i18n AI layer bug fixes (2026-04-16)
+  - ✅ **Bug:** `Orchestrator.handle()` rebuilt `AgentContext` without copying `locale` → `language_directive()` always received `"en"` → no language constraint injected to specialist agents
+  - ✅ **Fix:** `locale=context.locale` added to `enriched_context` construction in `orchestrator.py`
+  - ✅ **Bug:** Guardrail block message and out-of-scope message hardcoded in English regardless of locale
+  - ✅ **Fix:** `_BLOCKED_PREFIX` and `_OUT_OF_SCOPE` locale-keyed dicts (en/zh-CN/ko/es/ja) added to `orchestrator.py`; `GuardrailAgent` now applies `language_directive` so LLM-generated block reason is also in user's language
+
+- MedEase-Meta: planning + decisions updated (2026-04-16)
+  - ✅ ADR-003 (i18n), ADR-004 (demo UI/UX), ADR-007 (legacy cleanup) marked Accepted (Resolved)
+  - ✅ Feature registry updated: medication, caregiver, simplify, manual Google OAuth moved to Deprioritized/Removed
+  - ✅ Funding application infrastructure cost breakdown drafted (OpenAI API, GCP Cloud Run, Firestore, Cloudflare Pages, Firebase Auth)
+
 ## In Progress
 
 - MedEase-App: multi-agent RAG chat system (backend)
@@ -86,29 +109,16 @@
   - 🔲 Institution auth: wire real institution membership check (backend)
   - 🔲 Conversation history: sidebar placeholder ready, persistence not yet implemented
 
-## Up Next — Legacy Dump (do before Firestore migration)
-
-- **Legacy route + frontend cleanup** — ADR-007 accepted; one cleanup PR in MedEase-App
-  - **Backend — delete:**
-    - `src/routes/`: `medication.py`, `caregiver.py`, `google.py`, `simplify.py`
-    - `src/services/`: `simplify_service.py`, `dummy_simplify_service.py`, `classifier_service.py`
-    - `src/utils/s3Connection.py`
-    - `src/LLMmodel/ChatGPT.py` (only consumer was `/medication`)
-    - `src/models/`: `medicationModel.py`, `diaryModel.py`, `gmailModel.py`, `googleCalendarModel.py`, `patientDataModel.py`, `careGiverModel.py`, `simplificationModel.py`, `request_model.py`
-  - **Backend — edit `main.py`:** remove 4 router imports + `include_router` calls (medication, caregiver, google, simplify)
-  - **Backend — edit `requirements.txt`:** remove `boto3`, `torch`, `transformers` (verify no other consumers)
-  - **Frontend — delete:** `src/pages/careGiver/`, `src/pages/medication/`, `src/pages/reportsimplification/`
-  - **After PR merges:** redeploy backend to Cloud Run (image will be materially smaller)
-  - **Update:** `MedEase-App/CLAUDE.md` — remove stale route/feature references
-
 ## Up Next
 
-- **RAG corpus sitemap / registry** ← *Rolf working on this first*
+- **Merge PR #29** (`dev` → `main`) — conflicts resolved, ready; triggers Cloudflare Pages redeploy; redeploy backend to Cloud Run after merge (smaller image now that torch/boto3 removed)
+- **Firestore + Firebase Auth migration** (ADR-006) — next major backend work; sequence: create Firebase project under `medease-491604` → enable Firestore + Firebase Auth → migrate route files one at a time
+- **RAG corpus sitemap / registry** ← *Rolf working on this*
   - Registry live at `research/corpus-registry.md` — 8 sources tracked (C-001 through C-008)
   - Immediate work: MedEase-Utils V3 scraping P1 sources: `studenthealth.emory.edu`, `counseling.emory.edu`, `emoryhealthcare.org/patients-visitors/patient-resources`
   - Requires source metadata tagging on ChromaDB chunks (schema defined in corpus-registry.md)
 - **End-to-end RAG test** — spin up backend, send real DAS question through chat, verify retrieval + citations show correctly; first formal validation of the full pipeline
-- **Conversation history** — plan registered at `planning/conversation-history-plan.md`; Phase 1: MongoDB persistence + fixed 10-turn window + session sidebar; Phase 2: rolling summarization at >20 turns
+- **Conversation history** — plan at `planning/conversation-history-plan.md`; Phase 1: Firestore persistence + fixed 10-turn window + session sidebar; Phase 2: rolling summarization at >20 turns (sequence after ADR-006)
 - **Institution auth** — wire real institution membership check on backend
 
 ## Blocked
@@ -117,14 +127,12 @@ _Nothing currently blocked._
 
 ## Backlog
 
-- **[Deployment — when ML features go live]** Bump Cloud Run memory from 512 MiB → 2 GiB before enabling `/simplify` — BART model (~400MB+ runtime) will OOM at current limit: `gcloud run services update medease-backend --memory 2Gi --region us-central1`
 - **[Deployment — when ready]** Set up GitHub Actions workflow for automated Cloud Run backend deploy on push to `main` (service account key → `GCP_SA_KEY` GitHub secret)
-
+- **[Deployment — domain]** Purchase domain (considering `medease.health`); point to Cloudflare Pages; set up Cloudflare Email Routing for team inbox + Resend for transactional email (waitlist confirmations, account verification)
 - **[Compliance — pre-contract]** PHI de-identification pipeline: two-layer (regex + spaCy/Ollama) preprocessing before outbound LLM calls — see [[adr-002-phi-deidentification-strategy]]; benchmarking under MedEase-PoC-Eval
-- **[Compliance — post-incorporation]** Sign MongoDB Atlas BAA or evaluate Vanta/Drata for compliance automation — see [[hipaa-overview]]
+- **[Compliance — post-incorporation]** Sign GCP BAA (Cloud Console → IAM & Admin → Compliance) — self-service, no minimum spend; covers Cloud Run + Firestore + GCS
 - **[Compliance — pre-contract]** Draft Privacy Policy + add consent checkpoint at account creation
 - **[Compliance — pre-contract]** Add audit logging for PHI access events in FastAPI backend
-- Remove or archive obsolete frontend pages: `reportsimplification/`, `medication/`, `careGiver/` (routes already removed; files kept)
 - SignUp flow: redirect to `/dashboard` after registration (currently only Login redirects)
 
 ---
