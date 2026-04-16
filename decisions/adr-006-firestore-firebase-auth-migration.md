@@ -111,22 +111,243 @@ a 1:1 collection move first.
 - Custom HS256 JWT payload (`user_id`, `email`) replaced by Firebase ID token claims.
   Backend auth middleware must verify Firebase ID tokens instead of custom JWTs.
 
-**Follow-up actions required:**
-1. Create Firebase project under GCP (same project as Cloud Run: `medease-491604`)
-2. Enable Firestore in native mode (`us-central1`)
-3. Enable Firebase Auth with Email/Password + Google providers
-4. Replace Motor client (`src/database.py`) with Firestore async client
-5. Rewrite `src/routes/auth.py` — registration/login delegate to Firebase Auth
-6. Update protected route middleware — verify Firebase ID token instead of custom JWT
-7. Rewrite `src/routes/google.py` — OAuth token reads from Firebase Auth; eliminate
-   `googleCalendar` and `gmail` collections
-8. Migrate remaining collections to Firestore (waitlist, medication, medicalReport,
-   patientData, patientDiary, patientKey) — one route file at a time
-9. Update frontend auth flow — use Firebase Auth SDK client-side
-10. Add `FIREBASE_PROJECT_ID` + service account credentials to Cloud Run env / secrets
-11. Sign GCP BAA (Cloud Console → IAM & Admin → Compliance)
-12. Update ADR-005 consequences: MongoDB scraper run metadata → Firestore `scraperRuns`
-    collection (already on GCP; no separate change required)
+**Note:** ADR-007 (legacy cleanup, 2026-04-16) removed `google.py`, `caregiver.py`,
+`medication.py`, and `simplify.py`. This eliminates the `googleCalendar`, `gmail`,
+`medication`, `medicalReport`, `patientData`, and `patientDiary` collections from
+scope. Only `userInfo`, `waitlist`, and `patientKeys` remain active.
+
+---
+
+## Step-by-Step Migration Guide
+
+Work on branch `feat/firestore-migration`. All steps below are in sequence.
+
+---
+
+### Phase 1 — GCP + Firebase Console Setup
+
+**Step 1 — Enable Firebase on the existing GCP project**
+- Go to [console.firebase.google.com](https://console.firebase.google.com)
+- Click "Add project" → select existing GCP project `medease-491604`
+- This links Firebase to the project without creating a new one
+
+**Step 2 — Enable Firestore in native mode**
+- Firebase Console → Build → Firestore Database → Create database
+- Choose **Native mode** (not Datastore)
+- Region: `us-central1` (matches Cloud Run)
+
+**Step 3 — Enable Firebase Auth**
+- Firebase Console → Build → Authentication → Get started
+- Enable **Email/Password** provider
+- Enable **Google** provider (use existing OAuth client ID + secret from GCP — same credentials as the old `google.py` stack)
+
+**Step 4 — Generate a service account key for the backend**
+- Firebase Console → Project Settings (gear icon) → Service accounts
+- Click "Generate new private key" → download `firebase-service-account.json`
+- **Do not commit this file** — add to `.gitignore`
+- Store it as a Cloud Run secret (see Step 13)
+
+**Step 5 — Sign the GCP BAA**
+- Cloud Console → IAM & Admin → Compliance → accept the BAA
+- Self-service, no cost, covers Cloud Run + Firestore + GCS
+
+---
+
+### Phase 2 — Backend: Firebase Admin SDK
+
+**Step 6 — Install Firebase Admin SDK**
+```bash
+pip install firebase-admin
+pip freeze > requirements.txt
+```
+
+**Step 7 — Create `src/firebase.py`**
+```python
+import os
+import firebase_admin
+from firebase_admin import credentials, firestore, auth as firebase_auth
+
+_cred = credentials.Certificate(os.environ["FIREBASE_SERVICE_ACCOUNT_PATH"])
+firebase_admin.initialize_app(_cred)
+
+db = firestore.AsyncClient()          # async Firestore client
+firebase_auth = firebase_auth         # re-export for route use
+```
+In Cloud Run, `FIREBASE_SERVICE_ACCOUNT_PATH` points to the mounted secret file.
+Locally, point it at the downloaded JSON.
+
+**Step 8 — Replace `src/database.py`**
+Remove the Motor/MongoDB connection entirely. Replace all `motor_collection` references
+with Firestore collection references imported from `src/firebase.py`. Active collections
+after ADR-007:
+- `waitlist` → `db.collection("waitlist")`
+- `patientKeys` → `db.collection("patientKeys")`
+
+Keep `src/database.py` as the import point (so route files don't need path changes):
+```python
+from src.firebase import db
+waitlist_collection   = db.collection("waitlist")
+patient_key_collection = db.collection("patientKeys")
+```
+
+**Step 9 — Rewrite `src/utils/jwtUtils.py` → `src/utils/firebaseAuth.py`**
+Replace the custom JWT decode with Firebase ID token verification:
+```python
+from firebase_admin import auth as firebase_auth
+from fastapi import HTTPException, Request
+
+async def get_current_user(request: Request) -> str:
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    try:
+        decoded = firebase_auth.verify_id_token(token)
+        return decoded["uid"]          # Firebase UID replaces custom user_id
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+```
+Update all `Depends(get_current_user)` imports in `auth.py` and `general.py`.
+
+**Step 10 — Rewrite `src/routes/auth.py`**
+
+*Registration* (`POST /auth/register`):
+```python
+user = firebase_auth.create_user(email=email, password=password)
+# No Firestore doc needed — Firebase Auth owns identity
+```
+
+*Login* (`POST /auth/login`):
+Firebase Admin SDK cannot verify passwords server-side. Use the Firebase REST API:
+```
+POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={FIREBASE_WEB_API_KEY}
+Body: { email, password, returnSecureToken: true }
+```
+On success, set the returned `idToken` as an `httponly` cookie (same pattern as current).
+Add `FIREBASE_WEB_API_KEY` to `.env` (found in Firebase Console → Project Settings → General → Web API Key).
+
+*Logout* (`POST /auth/logout`): delete the cookie — unchanged.
+
+*Refresh* (`POST /auth/refresh`): Firebase ID tokens expire after 1 hour. The Firebase
+JS SDK handles refresh automatically on the client. Remove the server-side refresh
+endpoint or make it a no-op (cookie is refreshed client-side and re-sent on next request).
+
+*Get user* (`GET /auth/user`):
+```python
+user = firebase_auth.get_user(uid)
+return { "user_id": uid, "email": user.email }
+```
+
+**Step 11 — Update `src/routes/general.py`**
+
+- `GET /general/email`: call `firebase_auth.get_user(uid).email` instead of MongoDB lookup
+- `POST /general/generate-key`: write to `db.collection("patientKeys").document(user_id).set({...})`
+- `POST /general/resolve-user-id`: use `firebase_auth.get_user_by_email(email).uid`
+
+**Step 12 — Update `src/routes/waitlist.py`**
+Firestore write instead of MongoDB insert:
+```python
+doc_ref = db.collection("waitlist").document()
+await doc_ref.set({ "email": entry.email, "created_at": firestore.SERVER_TIMESTAMP })
+```
+Duplicate check: `db.collection("waitlist").where("email", "==", entry.email).get()`
+
+**Step 13 — Add env vars to Cloud Run**
+
+```bash
+# Store service account JSON as a Cloud Run secret
+gcloud secrets create firebase-service-account --data-file=firebase-service-account.json
+gcloud run services update medease-backend \
+  --region us-central1 \
+  --set-secrets FIREBASE_SERVICE_ACCOUNT_PATH=firebase-service-account:latest \
+  --set-env-vars FIREBASE_WEB_API_KEY=<your-web-api-key>
+```
+
+Remove from `.env`: `MONGO_URI`, `JWT_SECRET`, all collection name vars.
+Add to `.env`: `FIREBASE_SERVICE_ACCOUNT_PATH`, `FIREBASE_WEB_API_KEY`.
+
+---
+
+### Phase 3 — Frontend: Firebase JS SDK
+
+**Step 14 — Install Firebase JS SDK**
+```bash
+cd frontend && npm install firebase
+```
+
+**Step 15 — Create `src/firebase.js`**
+```js
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: "medease-491604.firebaseapp.com",
+  projectId: "medease-491604",
+};
+
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+```
+Add `VITE_FIREBASE_API_KEY` to `frontend/.env` and to the Cloudflare Pages env vars.
+
+**Step 16 — Rewrite `src/context/AuthContext.jsx`**
+Replace custom JWT fetch with Firebase SDK:
+```js
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword,
+         signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
+
+// Login: signInWithEmailAndPassword(auth, email, password)
+//        → on success, getIdToken() → send to backend to set httponly cookie
+// Register: createUserWithEmailAndPassword(auth, email, password)
+// Sign out: signOut(auth) + call POST /auth/logout to clear cookie
+// Auth state: onAuthStateChanged(auth, user => ...) replaces polling /auth/user
+```
+
+**Step 17 — Update `src/pages/auth/Login.jsx` and `SignUp.jsx`**
+Wire to Firebase SDK methods from Step 16. Remove direct calls to `POST /auth/login`
+and `POST /auth/register` (or keep them as the bridge that sets the httponly cookie).
+
+---
+
+### Phase 4 — Decommission MongoDB
+
+**Step 18 — Remove MongoDB packages**
+```bash
+pip uninstall motor pymongo
+pip freeze > requirements.txt
+```
+Remove from `requirements.txt`: `motor`, `pymongo`, `dnspython`.
+
+**Step 19 — Delete `src/database.py`** (after Step 8 replacement is live)
+
+**Step 20 — Cancel MongoDB Atlas**
+- Atlas dashboard → Project → Pause/terminate cluster
+- Revoke `MONGO_URI` credentials
+
+---
+
+### Phase 5 — Verification
+
+**Step 21 — Local smoke test**
+```bash
+./dev.sh backend
+# Register a new user → check Firebase Console → Authentication → Users
+# Join waitlist → check Firebase Console → Firestore → waitlist collection
+# Login → verify httponly cookie is set with Firebase ID token
+# Hit /dashboard → verify protected route works with new token verification
+```
+
+**Step 22 — Deploy to Cloud Run**
+```bash
+gcloud run deploy medease-backend --source . --region us-central1 \
+  --allow-unauthenticated --port 8080
+```
+Verify Firebase secrets are mounted correctly (Step 13).
+
+---
+
+*Related: [[adr-007-legacy-route-cleanup]] · [[adr-005-utils-hosted-architecture]] · [[hipaa-overview]] · [[adr-002-phi-deidentification-strategy]] · [[feature-registry]]*
 
 ---
 
