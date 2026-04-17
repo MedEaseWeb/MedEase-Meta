@@ -1,12 +1,12 @@
 # MedEase Pivot Research Plan
 
 **Date:** 2026-04-17  
-**Window:** Now → 4:00 PM (2 sessions × 30 min)  
+**Window:** Now → 6:00 PM (2 sessions × 30 min)  
 **Goal:** Determine if the hospital reimbursement penalty model applies to MedEase at universities — and if not, identify the lowest-liability pivot.
 
 ---
 
-## Session 1 · Now – 2:30 PM
+## Session 1 · Now – 4:30 PM
 ### Can the reimbursement penalty model apply to MedEase at universities?
 
 **Core analogy to stress-test:**  
