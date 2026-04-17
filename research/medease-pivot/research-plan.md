@@ -66,7 +66,7 @@ If **No** — proceed to Session 2.
 
 ---
 
-## Session 2 · 2:30 – 4:00 PM
+## Session 2 4:30 – 6:00 PM
 ### If healthcare is too risky, what's the lowest-liability pivot?
 
 *(Enter only if Session 1 verdict = No or Conditional)*
