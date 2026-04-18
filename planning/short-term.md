@@ -98,6 +98,17 @@
   - ✅ Feature registry updated: medication, caregiver, simplify, manual Google OAuth moved to Deprioritized/Removed
   - ✅ Funding application infrastructure cost breakdown drafted (OpenAI API, GCP Cloud Run, Firestore, Cloudflare Pages, Firebase Auth)
 
+## Completed This Sprint (cont'd) — 2026-04-17
+
+- MedEase-Meta: Firebase + Firestore console setup (2026-04-17)
+  - ✅ Firestore database created in GCP Console — Native mode, Standard edition, `nam5` (US multi-region)
+  - ✅ Firebase linked to existing GCP project `medease-491604` via Firebase Console (Blaze plan, no new project created)
+  - ✅ Firebase Admin SDK service account key downloaded (JSON)
+  - ✅ Firebase web app registered → Web API Key recorded
+  - ✅ GCP BAA deferred to post-incorporation (moved to Backlog — already noted there)
+  - ✅ Firebase Auth enabled — Email/Password provider active
+  - 🔲 Google provider deferred until SMTP/email flow is set up
+
 ## In Progress
 
 - MedEase-App: multi-agent RAG chat system (backend)
@@ -112,7 +123,7 @@
 ## Up Next
 
 - **Merge PR #29** (`dev` → `main`) — conflicts resolved, ready; triggers Cloudflare Pages redeploy; redeploy backend to Cloud Run after merge (smaller image now that torch/boto3 removed)
-- **Firestore + Firebase Auth migration** (ADR-006) — next major backend work; sequence: create Firebase project under `medease-491604` → enable Firestore + Firebase Auth → migrate route files one at a time
+- **Firestore + Firebase Auth migration** (ADR-006) — console setup done; next: enable Firebase Auth (Email/Password + Google providers) → install `firebase-admin` in backend → migrate route files one at a time
 - **RAG corpus sitemap / registry** ← *Rolf working on this*
   - Registry live at `research/corpus-registry.md` — 8 sources tracked (C-001 through C-008)
   - Immediate work: MedEase-Utils V3 scraping P1 sources: `studenthealth.emory.edu`, `counseling.emory.edu`, `emoryhealthcare.org/patients-visitors/patient-resources`

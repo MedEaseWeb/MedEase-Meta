@@ -124,7 +124,7 @@ Work on branch `feat/firestore-migration`. All steps below are in sequence.
 
 ---
 
-### Phase 1 — GCP + Firebase Console Setup
+### Phase 1 — GCP + Firebase Console Setup (Completed)
 
 **Step 1 — Enable Firebase on the existing GCP project**
 - Go to [console.firebase.google.com](https://console.firebase.google.com)

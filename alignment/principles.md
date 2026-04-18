@@ -1,7 +1,7 @@
 # Product & Design Principles
 
 > These govern trade-off decisions when priorities conflict.
-> Last updated: 2026-03-20
+> Last updated: 2026-04-17
 
 1. **Accessibility is the product, not a feature.** Every design decision
    should ask: does this make the experience more or less accessible?
@@ -17,6 +17,13 @@
 
 5. **Honest about limitations.** The system should tell users what it
    can't answer and where to go instead — not hallucinate an answer.
+
+6. **Resource-first agent design.** Agent workflows and behaviors are
+   reverse-engineered from the finite set of institutional resources
+   available (Emory DAS, Student Health, Counseling, etc.) — not
+   bottom-up from an exhaustive list of possible user needs. When
+   defining agent scope, tuning behavior, or adding use cases, ask:
+   what can our sources actually support? Design to that ceiling.
 
 ---
 
